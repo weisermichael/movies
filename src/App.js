@@ -10,6 +10,14 @@ function Header() {
   )
 }
 
+function Search({value, handleChange}) {
+  return(
+    <div class="search">
+      search: <input type='text' value={value} onChange={handleChange} />
+    </div>
+  )
+}
+
 function MovieCard({poster_path, title, rating, genre}){
   const imgSrc = "https://image.tmdb.org/t/p/w185_and_h278_bestv2" + poster_path
   return(
@@ -58,11 +66,22 @@ function App() {
           }
   , [])
 
+  //search bar event handler
+  const handleChange = (ev) => {
+    setSearch(ev.target.value);
 
+    const searchedMovies = movieData.filter((movie) => (movie.title.toLowerCase()).includes((ev.target.value).toLowerCase()))
+    setSearchResults(searchedMovies);
+  }
+
+  console.log(search)
+    console.log(searchResults)
   return (
     <div className="App">
       <Header />
-      <MoviesDisplay movieData={movieData}/>
+      <Search value={search} 
+              handleChange={handleChange}/>
+      <MoviesDisplay movieData={search === "" ? movieData : searchResults}/>
     </div>
   );
 }
