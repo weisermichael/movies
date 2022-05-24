@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial');
+
+$font-family: Questrial, sans-serif;
+$primary-color: grey;
+
+$tablet: 768px;
+$desktop: 960px;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+	font-family: $font-family;
+	color: $primary-color;
+}
+
+.movie-display {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background-color: grey;
+}
+
+.movie-card{
+  display: flex;
+  height: 100%;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid black;
+
+  @media (min-width: $tablet) {
+    width: calc(100% / 3 );
+  }
+
+  @media (min-width: $desktop) {
+    width: calc(100% / 4 );
+  } 
+}
+
+.movie-card p {
+  background-color: pink;
+  width: 50%;
+  margin: 0;
+}
+
+.movie-card p span{
+  display: block;
+  margin-bottom: 10px;
+}
+.poster{
+  width: 50%;
+  height: 100%;
+}
+
+.App {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
