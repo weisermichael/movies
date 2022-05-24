@@ -22,18 +22,24 @@ function MovieCard({poster_path, title, rating, genre}){
   const imgSrc = "https://image.tmdb.org/t/p/w185_and_h278_bestv2" + poster_path
   return(
     <div class="movie-card">
-      <img class="poster" src={imgSrc} alt="poster"/>
-      <p>
-        <span>
-          {title}
-        </span>
-        <span>
-          rating: {rating}
-        </span>
-        <span>
-          genre: {genre}
-        </span>
-      </p>
+      <div class="content">
+        <div class="front">
+          <img class="poster" src={imgSrc} alt="poster"/>
+        </div>
+        <div class="back">
+          <div>
+            <span>
+            {title}
+            </span>
+            <span>
+            rating: {rating}
+            </span>
+            <span>
+            genre: {genre}
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

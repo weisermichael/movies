@@ -1,56 +1,126 @@
 @import url('https://fonts.googleapis.com/css?family=Questrial');
 
 $font-family: Questrial, sans-serif;
-$primary-color: grey;
+$primary-color: #A8DADC;
+$secondary-color: #457B9D;
+$text-color: black;
 
 $tablet: 768px;
 $desktop: 960px;
 
+
 * {
   box-sizing: border-box;
+  color:$text-color;
 }
 
 body {
-	font-family: $font-family;
-	color: $primary-color;
+  font-family: $font-family;
+  background-color: $primary-color;
+
+  h1,h2,p {
+    color: $text-color;
+  }
+}
+//flip card styling
+
+.movie-card {
+  perspective: 500px;
 }
 
-.movie-display {
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.movie-card:hover .content {
+  transform: rotateY( 180deg ) ;
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  background-color: grey;
+  height: 100%;
+  width: 100%;
+  background: $primary-color;
+  text-align: center;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.front {
+  position:absolute;
+}
+
+.back {
+  display: flex;
+  align-content:center;
+  margin: auto 0;
+  background: #0687d2;
+  transform: rotateY( 180deg );
+}
+
+//end flipcard styling
+
+
+.movie-display {
+  display:grid;
+  justify-items:center;
+
+  background-color: $primary-color;
+
+  @media (min-width: $tablet) {
+    grid-template-columns: repeat(3, calc(100% / 3 ));
+  }
+
+  @media (min-width: $desktop) {
+    grid-template-columns: repeat(4, calc(100% / 4 ));
+  } 
 }
 
 .movie-card{
   display: flex;
   height: 100%;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid darkgray;
 
-  @media (min-width: $tablet) {
-    width: calc(100% / 3 );
-  }
+  // @media (min-width: $tablet) {
+  //   width: calc(100% / 3 );
+  // }
 
-  @media (min-width: $desktop) {
-    width: calc(100% / 4 );
-  } 
+  // @media (min-width: $desktop) {
+  //   width: calc(100% / 4 );
+  // } 
 }
 
-.movie-card p {
-  background-color: pink;
-  width: 50%;
-  margin: 0;
-}
-
-.movie-card p span{
+.movie-card .back div {
+  background-color: $secondary-color;
   display: block;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  width: 100%;
+  height:400px;
+  //margin: auto;
+  border:3px solid purple;
+}
+
+.movie-card .back div span{
+  margin:auto;
 }
 .poster{
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid black;
 }
 
 .search {
