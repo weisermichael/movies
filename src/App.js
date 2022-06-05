@@ -44,7 +44,23 @@ function MovieCard({poster_path, title, rating, genre}){
   )
 }
 
-function MoviesDisplay({movieData}) {
+function MoviesDisplay({movieData, genres}) {
+  //create object to lookup genre id's
+  const getGenreLookup = () => {
+    const genreLookup = {}
+    genres.forEach((genreObj) => {
+      genreLookup[genreObj.id] = genreObj.name
+    })
+    return genreLookup;
+  }
+  const genreObject = getGenreLookup();
+
+  const getGenreString = (genre_ids) => {
+    let genreString = "";
+    genre_ids.forEach(id => genreString += "" + genreObject[id] + ", ")
+    genreString = genreString.replace(/,\s*$/, "");
+    return genreString
+  }
 
   return(
     <div class="movie-display">
@@ -53,7 +69,11 @@ function MoviesDisplay({movieData}) {
           poster_path={movie.poster_path}
           title={movie.title}
           rating={movie.vote_average}
-          genre={movie.genre_ids}/>)}
+          //genre={movie.genre_ids}
+          genre={getGenreString(movie.genre_ids)}
+        />
+        )
+      }
     </div>
   )
 }
@@ -63,6 +83,7 @@ function App() {
   const [search, setSearch] = useState('')
   const [movieData, setMovieData] = useState([])
   const [searchResults, setSearchResults] = useState([])
+  const [genres, setGenres] = useState([])
 
   //effect for movies database
   useEffect(() => {
@@ -72,6 +93,12 @@ function App() {
           }
   , [])
 
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=666376e7ed7c6a4d1e103f6bfcfe0cbd&page=1&language=en-US')
+          .then(response => response.json())
+          .then(data => setGenres(data.genres))
+  }, [])
+
   //search bar event handler
   const handleChange = (ev) => {
     setSearch(ev.target.value);
@@ -80,14 +107,13 @@ function App() {
     setSearchResults(searchedMovies);
   }
 
-  console.log(search)
-    console.log(searchResults)
   return (
     <div className="App">
       <Header />
       <Search value={search} 
               handleChange={handleChange}/>
-      <MoviesDisplay movieData={search === "" ? movieData : searchResults}/>
+      <MoviesDisplay movieData={search === "" ? movieData : searchResults}
+                     genres = {genres}/>
     </div>
   );
 }

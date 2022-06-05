@@ -5,6 +5,7 @@ $primary-color: #A8DADC;
 $secondary-color: #457B9D;
 $text-color: black;
 
+$border-radius: 20px;
 $tablet: 768px;
 $desktop: 960px;
 
@@ -26,13 +27,23 @@ body {
 
 .movie-card {
   perspective: 500px;
+  width: 233px;
+  height:350px;
+
+  display: flex;
+  //height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  //width: 100%;
+  padding-bottom:10px;
+  //border: 1px solid darkgray;
 }
 
 .content {
   position: relative;
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  //box-shadow: 0 0 15px rgba(0,0,0,0.1);
 
   transition: transform 1s;
   transform-style: preserve-3d;
@@ -50,7 +61,7 @@ body {
   width: 100%;
   background: $primary-color;
   text-align: center;
-  border-radius: 5px;
+  border-radius: $border-radius;
   backface-visibility: hidden;
 }
 
@@ -59,14 +70,13 @@ body {
 }
 
 .back {
+  position: absolute;
   display: flex;
   align-content:center;
   margin: auto 0;
-  background: #0687d2;
+  background: $secondary-color;
   transform: rotateY( 180deg );
 }
-
-//end flipcard styling
 
 
 .movie-display {
@@ -84,23 +94,6 @@ body {
   } 
 }
 
-.movie-card{
-  display: flex;
-  height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  border: 1px solid darkgray;
-
-  // @media (min-width: $tablet) {
-  //   width: calc(100% / 3 );
-  // }
-
-  // @media (min-width: $desktop) {
-  //   width: calc(100% / 4 );
-  // } 
-}
-
 .movie-card .back div {
   background-color: $secondary-color;
   display: block;
@@ -108,19 +101,23 @@ body {
   flex-direction: column;
   align-content: space-between;
   width: 100%;
-  height:400px;
-  //margin: auto;
-  border:3px solid purple;
+  border-radius: $border-radius;
+  //min-height: 350px;
+  //height:400px;
+  //border:3px solid purple;
 }
 
 .movie-card .back div span{
   margin:auto;
 }
+
 .poster{
+  margin: 0;
   width: 100%;
-  height: auto;
+  height: min-content;
+  border-radius: $border-radius;
   object-fit: contain;
-  border: 1px solid black;
+  //border: 1px solid black;
 }
 
 .search {
